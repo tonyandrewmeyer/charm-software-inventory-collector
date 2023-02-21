@@ -8,10 +8,10 @@ Avoid using this README file for information that is maintained or published els
 Use links instead.
 -->
 
-# software-inventory-collector
+# charm-software-inventory-collector
 
 Charmhub package name: operator-template
-More information: https://charmhub.io/software-inventory-collector
+More information: https://charmhub.io/charm-software-inventory-collector
 
 Describe your charm in one or two sentences.
 

@@ -8,12 +8,6 @@ import ops.testing
 import pytest
 from charm import CharmSoftwareInventoryCollectorCharm
 
-#
-# @pytest.fixture(scope="session")
-# def unit_hostname() -> str:
-#     """Return statically defined units' hostname (IP)."""
-#     return "10.0.0.1"
-
 
 @pytest.fixture()
 def harness() -> ops.testing.Harness[CharmSoftwareInventoryCollectorCharm]:

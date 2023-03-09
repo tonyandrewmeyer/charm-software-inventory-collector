@@ -1,7 +1,7 @@
 # This file populates the Overview on Charmhub.
 # See https://juju.is/docs/sdk/metadata-reference for a checklist and guidance.
 
-name: charm-software-inventory-collector
+name: software-inventory-collector
 display-name: Software Inventory Collector
 
 summary: Charm that deploys Software Inventory Collector snap
@@ -12,7 +12,7 @@ description: |
 
 requires:
   inventory-exporter:
-    interface: inventory-exporter
+    interface: software-inventory
 
 resources:
   collector-snap:

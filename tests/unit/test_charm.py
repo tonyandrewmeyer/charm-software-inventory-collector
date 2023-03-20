@@ -7,9 +7,10 @@ from base64 import b64encode
 from itertools import repeat
 from unittest.mock import MagicMock, mock_open, patch
 
-import charm
 import pytest
 from ops.model import ActiveStatus, BlockedStatus
+
+import charm
 
 
 @pytest.mark.parametrize(

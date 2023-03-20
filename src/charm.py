@@ -16,7 +16,7 @@ import logging
 import os
 import subprocess
 from base64 import b64decode
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 import yaml
 from charms.operator_libs_linux.v1 import snap
@@ -35,7 +35,8 @@ class CharmSoftwareInventoryCollectorCharm(CharmBase):
     COLLECTOR_SNAP = "software-inventory-collector"
     CONFIG_PATH = f"/var/snap/{COLLECTOR_SNAP}/current/collector.yaml"
 
-    def __init__(self, *args) -> None:
+    def __init__(self, *args: Any) -> None:
+        """Instantiate the charm service."""
         super().__init__(*args)
         self._snap_path: Optional[str] = None
         self._is_snap_path_cached = False
@@ -120,7 +121,7 @@ class CharmSoftwareInventoryCollectorCharm(CharmBase):
         Sources for the configuration are charm config options and data from relation
         with exporter charms.
         """
-        config = {
+        config: dict = {
             "settings": {},
             "juju_controller": {},
             "targets": [],
@@ -128,7 +129,7 @@ class CharmSoftwareInventoryCollectorCharm(CharmBase):
 
         customer = self.config.get("customer")
         site = self.config.get("site")
-        ca_cert = b64decode(self.config.get("juju_ca_cert")).decode("UTF-8")
+        ca_cert = b64decode(self.config.get("juju_ca_cert")).decode("UTF-8")  # type: ignore
 
         config["settings"]["collection_path"] = self.config.get("collection_path")
         config["settings"]["customer"] = customer
@@ -138,7 +139,7 @@ class CharmSoftwareInventoryCollectorCharm(CharmBase):
         config["juju_controller"]["password"] = self.config.get("juju_password")
         config["juju_controller"]["ca_cert"] = ca_cert
 
-        for relation in self.model.relations.get("inventory-exporter"):
+        for relation in self.model.relations.get("inventory-exporter"):  # type: ignore
             for unit in relation.units:
                 remote_data = relation.data[unit]
                 endpoint = f"{remote_data.get('private-address')}:{remote_data.get('port')}"

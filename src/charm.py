@@ -129,7 +129,7 @@ class CharmSoftwareInventoryCollectorCharm(CharmBase):
 
         customer = self.config.get("customer")
         site = self.config.get("site")
-        ca_cert = b64decode(self.config.get("juju_ca_cert")).decode("UTF-8")  # type: ignore
+        ca_cert = b64decode(self.config.get("juju_ca_cert", "")).decode("UTF-8")
 
         config["settings"]["collection_path"] = self.config.get("collection_path")
         config["settings"]["customer"] = customer
@@ -139,7 +139,7 @@ class CharmSoftwareInventoryCollectorCharm(CharmBase):
         config["juju_controller"]["password"] = self.config.get("juju_password")
         config["juju_controller"]["ca_cert"] = ca_cert
 
-        for relation in self.model.relations.get("inventory-exporter"):  # type: ignore
+        for relation in self.model.relations.get("inventory-exporter", []):
             for unit in relation.units:
                 remote_data = relation.data[unit]
                 endpoint = f"{remote_data.get('private-address')}:{remote_data.get('port')}"

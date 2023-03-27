@@ -12,9 +12,8 @@ from charm import CharmSoftwareInventoryCollectorCharm
 
 @pytest.fixture()
 def harness() -> ops.testing.Harness[CharmSoftwareInventoryCollectorCharm]:
-    """Return harness for PrometheusJujuExporterCharm."""
+    """Return harness for CharmSoftwareInventoryCollectorCharm."""
     ops.testing.SIMULATE_CAN_CONNECT = True
-    # mocker.patch.object(PrometheusScrapeTarget, "get_hostname", return_value=unit_hostname)
 
     harness = ops.testing.Harness(CharmSoftwareInventoryCollectorCharm)
     harness.begin()

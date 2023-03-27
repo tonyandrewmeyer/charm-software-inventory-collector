@@ -52,9 +52,9 @@ class CharmSoftwareInventoryCollectorCharm(CharmBase):
 
     @property
     def snap_path(self) -> Optional[str]:
-        """Get local path to exporter snap.
+        """Get local path to collector snap.
 
-        If this charm has snap file for the exporter attached as a resource, this property returns
+        If this charm has snap file for the collector attached as a resource, this property returns
         path to the snap file. If the resource was not attached of the file is empty, this property
         returns None.
         """

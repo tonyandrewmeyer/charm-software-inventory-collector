@@ -81,21 +81,22 @@ def test_run_collector(dry_run, expected_success, harness, mocker):
 @pytest.mark.parametrize("local_snap", [True, False])
 def test_on_install(local_snap, harness, mocker):
     """Test function that handles snap installation."""
+    collector_snap = MagicMock()
+    mocker.patch.object(
+        charm.snap, "SnapCache", return_value={"software-inventory-collector": collector_snap}
+    )
     snap_path = "/path/to/snap" if local_snap else None
     harness.charm._snap_path = snap_path
     harness.charm._is_snap_path_cached = True
     assess_status_mock = mocker.patch.object(harness.charm, "assess_status")
-    snap_mock = mocker.patch.object(charm, "snap")
+    snap_local = mocker.patch.object(charm.snap, "install_local")
 
     harness.charm._on_install(None)
 
     if local_snap:
-        snap_mock.install_local.assert_called_once_with(snap_path, dangerous=True)
+        snap_local.assert_called_once_with(snap_path, dangerous=True)
     else:
-        expected_state = str(snap_mock.SnapState.Latest)
-        snap_mock.ensure.assert_called_once_with(
-            snap_names=harness.charm.COLLECTOR_SNAP, state=expected_state
-        )
+        collector_snap.ensure.assert_called_once_with(charm.snap.SnapState.Latest)
 
     assess_status_mock.assert_called_once()
 

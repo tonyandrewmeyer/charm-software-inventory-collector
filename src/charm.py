@@ -71,6 +71,12 @@ class CharmSoftwareInventoryCollectorCharm(CharmBase):
 
         return self._snap_path
 
+    @property
+    def collector(self) -> snap.Snap:
+        """Return Snap object representing Software Inventory Collector snap."""
+        cache = snap.SnapCache()
+        return cache[self.COLLECTOR_SNAP]
+
     def run_collector(self, dry_run: bool = False) -> bool:
         """Execute collector command.
 
@@ -106,7 +112,7 @@ class CharmSoftwareInventoryCollectorCharm(CharmBase):
         if self.snap_path:
             snap.install_local(self.snap_path, dangerous=True)
         else:
-            snap.ensure(snap_names=self.COLLECTOR_SNAP, state=str(snap.SnapState.Latest))
+            self.collector.ensure(snap.SnapState.Latest)
 
         self.assess_status()
 

@@ -1,0 +1,20 @@
+charm_name: software-inventory-collector
+
+gate_bundles:
+  - jammy
+  - focal
+
+tests:
+  - tests.test_charm.SoftwareInventoryCollectorTests
+
+configure:
+  - tests.configure_charm.setup_juju_credentials
+
+target_deploy_status:
+  software-inventory-collector:
+    workload-status: blocked
+    workload-status-message-prefix: "Collector is unable to run. Please see logs."
+  software-inventory-exporter:
+    workload-status-message-prefix: "Unit is ready."
+  ubuntu:
+    workload-status-message-prefix: ""

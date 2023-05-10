@@ -1,0 +1,12 @@
+applications:
+  ubuntu:
+    charm: ch:ubuntu
+    num_units: 1
+
+  software-inventory-exporter:
+    charm: ch:software-inventory-exporter
+    channel: latest/edge # this should be removed after the charm is on stable
+
+relations:
+  - - "ubuntu"
+    - "software-inventory-exporter"

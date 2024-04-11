@@ -16,7 +16,7 @@ import logging
 import os
 import subprocess
 from base64 import b64decode
-from typing import Any, Optional, Union
+from typing import Any, Optional, Union, cast
 
 import yaml
 from charms.operator_libs_linux.v1 import snap
@@ -135,7 +135,7 @@ class CharmSoftwareInventoryCollectorCharm(CharmBase):
 
         customer = self.config.get("customer")
         site = self.config.get("site")
-        ca_cert = b64decode(self.config.get("juju_ca_cert", "")).decode("UTF-8")
+        ca_cert = b64decode(cast(str, self.config.get("juju_ca_cert", ""))).decode("UTF-8")
 
         config["settings"]["collection_path"] = self.config.get("collection_path")
         config["settings"]["customer"] = customer

@@ -1,2 +1,1 @@
-#ops >= 1.5.0
-ops @ git+https://github.com/tonyandrewmeyer/operator@fix-config-types-1182
+ops >= 1.5.0
